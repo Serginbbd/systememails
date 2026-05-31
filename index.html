@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gerador de e-mails</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Segoe UI, sans-serif;
+}
+
+body{
+    background:linear-gradient(135deg,#0f172a,#1e293b);
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    color:white;
+}
+
+.container{
+    width:90%;
+    max-width:700px;
+    background:rgba(255,255,255,0.05);
+    backdrop-filter:blur(10px);
+    border-radius:20px;
+    padding:30px;
+    box-shadow:0 0 30px rgba(0,0,0,.3);
+}
+
+h1{
+    text-align:center;
+    margin-bottom:10px;
+}
+
+.subtitle{
+    text-align:center;
+    opacity:.7;
+    margin-bottom:25px;
+}
+
+button{
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    font-size:16px;
+    font-weight:bold;
+}
+
+.primary{
+    background:#3b82f6;
+    color:white;
+}
+
+.primary:hover{
+    opacity:.9;
+}
+
+.result{
+    margin-top:25px;
+}
+
+.card{
+    background:rgba(255,255,255,.08);
+    padding:15px;
+    border-radius:12px;
+    margin-bottom:12px;
+}
+
+.label{
+    color:#94a3b8;
+    font-size:13px;
+}
+
+.value{
+    font-size:18px;
+    margin-top:5px;
+    word-break:break-all;
+}
+
+.copy{
+    margin-top:10px;
+    background:#10b981;
+    color:white;
+    padding:8px 12px;
+    border:none;
+    border-radius:8px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Gerador de E-mails</h1>
+<p class="subtitle">
+Gera e-mails e senhas aleatórias para uso.
+</p>
+
+<button class="primary" onclick="gerarDados()">
+Gerar Dados
+</button>
+
+<div class="result">
+
+<div class="card">
+<div class="label">E-mail</div>
+<div class="value" id="email">---</div>
+<button class="copy" onclick="copiar('email')">Copiar</button>
+</div>
+
+<div class="card">
+<div class="label">Senha</div>
+<div class="value" id="senha">---</div>
+<button class="copy" onclick="copiar('senha')">Copiar</button>
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+function randomString(length){
+    const chars =
+    "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+
+    let result = "";
+
+    for(let i=0;i<length;i++){
+        result += chars.charAt(
+            Math.floor(Math.random()*chars.length)
+        );
+    }
+
+    return result;
+}
+
+function gerarDados(){
+
+    const usuario =
+        randomString(8).toLowerCase();
+
+    const dominios = [
+        "gmail.com",
+        "yahoo.com",
+        "outlook.com",
+        "gmail.com"
+    ];
+
+    const dominio =
+        dominios[Math.floor(Math.random()*dominios.length)];
+
+    const email =
+        `${usuario}@${dominio}`;
+
+    const senha =
+        randomString(14);
+
+    document.getElementById("email").innerText =
+        email;
+
+    document.getElementById("senha").innerText =
+        senha;
+}
+
+function copiar(id){
+
+    const texto =
+        document.getElementById(id).innerText;
+
+    navigator.clipboard.writeText(texto);
+
+    alert("Copiado!");
+}
+
+</script>
+
+</body>
+</html>
