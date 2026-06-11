@@ -1,186 +1,466 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gerador de e-mails</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Gerador de E-mails Profissional</title>
 
 <style>
+:root{
+    --bg:#050816;
+    --card:#0f172a;
+    --card-2:#111c33;
+    --primary:#6366f1;
+    --primary-2:#8b5cf6;
+    --success:#22c55e;
+    --danger:#ef4444;
+    --text:#f8fafc;
+    --muted:#94a3b8;
+    --border:rgba(255,255,255,.12);
+}
+
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
-    font-family:Segoe UI, sans-serif;
+    font-family:Inter, Segoe UI, Arial, sans-serif;
 }
 
 body{
-    background:linear-gradient(135deg,#0f172a,#1e293b);
     min-height:100vh;
+    background:
+        radial-gradient(circle at top left, rgba(99,102,241,.35), transparent 35%),
+        radial-gradient(circle at bottom right, rgba(139,92,246,.28), transparent 35%),
+        var(--bg);
+    color:var(--text);
     display:flex;
-    justify-content:center;
     align-items:center;
-    color:white;
+    justify-content:center;
+    padding:25px;
 }
 
-.container{
-    width:90%;
-    max-width:700px;
-    background:rgba(255,255,255,0.05);
-    backdrop-filter:blur(10px);
-    border-radius:20px;
-    padding:30px;
-    box-shadow:0 0 30px rgba(0,0,0,.3);
+.app{
+    width:100%;
+    max-width:1050px;
+    display:grid;
+    grid-template-columns:1fr 1.2fr;
+    gap:25px;
+}
+
+.panel{
+    background:rgba(15,23,42,.86);
+    border:1px solid var(--border);
+    border-radius:24px;
+    padding:28px;
+    box-shadow:0 30px 80px rgba(0,0,0,.45);
+    backdrop-filter:blur(18px);
+}
+
+.logo{
+    width:54px;
+    height:54px;
+    border-radius:16px;
+    background:linear-gradient(135deg,var(--primary),var(--primary-2));
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:26px;
+    margin-bottom:18px;
 }
 
 h1{
-    text-align:center;
-    margin-bottom:10px;
-}
-
-.subtitle{
-    text-align:center;
-    opacity:.7;
-    margin-bottom:25px;
-}
-
-button{
-    width:100%;
-    padding:15px;
-    border:none;
-    border-radius:10px;
-    cursor:pointer;
-    font-size:16px;
-    font-weight:bold;
-}
-
-.primary{
-    background:#3b82f6;
-    color:white;
-}
-
-.primary:hover{
-    opacity:.9;
-}
-
-.result{
-    margin-top:25px;
-}
-
-.card{
-    background:rgba(255,255,255,.08);
-    padding:15px;
-    border-radius:12px;
+    font-size:32px;
+    line-height:1.1;
     margin-bottom:12px;
 }
 
-.label{
-    color:#94a3b8;
+.subtitle{
+    color:var(--muted);
+    line-height:1.6;
+    margin-bottom:25px;
+}
+
+.field{
+    margin-bottom:16px;
+}
+
+label{
+    display:block;
+    color:#cbd5e1;
+    margin-bottom:8px;
+    font-size:14px;
+}
+
+input, select{
+    width:100%;
+    padding:14px;
+    border:none;
+    outline:none;
+    border-radius:14px;
+    background:#020617;
+    color:white;
+    border:1px solid var(--border);
+    font-size:15px;
+}
+
+.actions{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+    margin-top:20px;
+}
+
+button{
+    border:none;
+    border-radius:14px;
+    padding:14px;
+    font-weight:700;
+    cursor:pointer;
+    transition:.2s;
+    color:white;
+}
+
+button:hover{
+    transform:translateY(-2px);
+    opacity:.94;
+}
+
+.primary{
+    background:linear-gradient(135deg,var(--primary),var(--primary-2));
+}
+
+.secondary{
+    background:#1e293b;
+}
+
+.success{
+    background:var(--success);
+}
+
+.danger{
+    background:var(--danger);
+}
+
+.result-box{
+    background:linear-gradient(180deg,var(--card-2),var(--card));
+    border:1px solid var(--border);
+    border-radius:20px;
+    padding:20px;
+    margin-bottom:18px;
+}
+
+.result-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:18px;
+}
+
+.badge{
+    background:rgba(99,102,241,.18);
+    color:#c4b5fd;
+    padding:7px 11px;
+    border-radius:999px;
+    font-size:12px;
+}
+
+.info-card{
+    background:#020617;
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:16px;
+    margin-bottom:12px;
+}
+
+.info-card span{
+    color:var(--muted);
+    display:block;
     font-size:13px;
+    margin-bottom:6px;
+}
+
+.value-row{
+    display:flex;
+    align-items:center;
+    gap:10px;
 }
 
 .value{
-    font-size:18px;
-    margin-top:5px;
+    flex:1;
+    font-size:17px;
     word-break:break-all;
 }
 
-.copy{
-    margin-top:10px;
-    background:#10b981;
-    color:white;
-    padding:8px 12px;
-    border:none;
-    border-radius:8px;
+.copy-btn{
+    padding:9px 12px;
+    font-size:13px;
+    background:#334155;
+}
+
+.history{
+    max-height:380px;
+    overflow:auto;
+    padding-right:5px;
+}
+
+.history-item{
+    background:#020617;
+    border:1px solid var(--border);
+    border-radius:15px;
+    padding:14px;
+    margin-bottom:10px;
+}
+
+.history-item strong{
+    display:block;
+    margin-bottom:5px;
+}
+
+.history-item small{
+    color:var(--muted);
+}
+
+.footer-note{
+    color:var(--muted);
+    font-size:13px;
+    margin-top:18px;
+    line-height:1.5;
+}
+
+.toast{
+    position:fixed;
+    bottom:25px;
+    right:25px;
+    background:#16a34a;
+    padding:14px 18px;
+    border-radius:12px;
+    display:none;
+    box-shadow:0 15px 40px rgba(0,0,0,.4);
+}
+
+@media(max-width:850px){
+    .app{
+        grid-template-columns:1fr;
+    }
+
+    h1{
+        font-size:27px;
+    }
 }
 </style>
 </head>
 
 <body>
 
-<div class="container">
+<div class="app">
 
-<h1>Gerador de E-mails</h1>
-<p class="subtitle">
-Gera e-mails e senhas para uso.
-</p>
+    <section class="panel">
+        <div class="logo">✉️</div>
 
-<button class="primary" onclick="gerarDados()">
-Gerar Dados
-</button>
+        <h1>Gerador de E-mails e Senhas</h1>
 
-<div class="result">
+       <p class="footer-note">
+    Gerador de endereços de e-mail e senhas para demonstrações, homologação e testes de sistemas.
+       </p>
 
-<div class="card">
-<div class="label">E-mail</div>
-<div class="value" id="email">---</div>
-<button class="copy" onclick="copiar('email')">Copiar</button>
+        <div class="field">
+            <label>Prefixo do usuário</label>
+            <input type="text" id="prefixo" placeholder="Ex: cliente, teste, usuario">
+        </div>
+
+        <div class="field">
+            <label>Domínio</label>
+            <select id="dominio">
+                <option value="teste.com">teste.com</option>
+                <option value="homologacao.com">homologacao.com</option>
+                <option value="empresa.dev">empresa.dev</option>
+                <option value="qa.local">qa.local</option>
+                <option value="gmail.com">gmail.com</option>
+                <option value="outlook.com">outlook.com</option>
+            </select>
+        </div>
+
+        <div class="field">
+            <label>Quantidade para gerar</label>
+            <input type="number" id="quantidade" min="1" max="50" value="1">
+        </div>
+
+        <div class="actions">
+            <button class="primary" onclick="gerarDados()">Gerar</button>
+            <button class="secondary" onclick="copiarTudo()">Copiar tudo</button>
+            <button class="success" onclick="baixarCSV()">Baixar CSV</button>
+            <button class="danger" onclick="limparHistorico()">Limpar</button>
+        </div>
+
+        <p class="footer-note">
+            Observação: este sistema gera dados fictícios para testes. Ele não cria contas reais em Gmail, Outlook ou qualquer outro provedor.
+        </p>
+    </section>
+
+    <section class="panel">
+
+        <div class="result-box">
+            <div class="result-header">
+                <h2>Último Gerado</h2>
+                <span class="badge">Automático</span>
+            </div>
+
+            <div class="info-card">
+                <span>E-mail</span>
+                <div class="value-row">
+                    <div class="value" id="email">---</div>
+                    <button class="copy-btn" onclick="copiarTexto('email')">Copiar</button>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <span>Senha</span>
+                <div class="value-row">
+                    <div class="value" id="senha">---</div>
+                    <button class="copy-btn" onclick="copiarTexto('senha')">Copiar</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="result-header">
+            <h2>Histórico</h2>
+            <span class="badge" id="contador">0 gerados</span>
+        </div>
+
+        <div class="history" id="historico"></div>
+
+    </section>
+
 </div>
 
-<div class="card">
-<div class="label">Senha</div>
-<div class="value" id="senha">---</div>
-<button class="copy" onclick="copiar('senha')">Copiar</button>
-</div>
-
-</div>
-
-</div>
+<div class="toast" id="toast">Copiado com sucesso!</div>
 
 <script>
+let dadosGerados = [];
 
 function randomString(length){
-    const chars =
-    "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-
+    const chars = "abcdefghijklmnopqrstuvwxyz0123456789";
     let result = "";
 
-    for(let i=0;i<length;i++){
-        result += chars.charAt(
-            Math.floor(Math.random()*chars.length)
-        );
+    for(let i = 0; i < length; i++){
+        result += chars.charAt(Math.floor(Math.random() * chars.length));
     }
 
     return result;
 }
 
-function gerarDados(){
+function gerarSenha(length = 14){
+    const chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%&*";
+    let senha = "";
 
-    const usuario =
-        randomString(8).toLowerCase();
+    for(let i = 0; i < length; i++){
+        senha += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
 
-    const dominios = [
-        "gmail.com",
-        "yahoo.com",
-        "outlook.com",
-        "gmail.com"
-    ];
-
-    const dominio =
-        dominios[Math.floor(Math.random()*dominios.length)];
-
-    const email =
-        `${usuario}@${dominio}`;
-
-    const senha =
-        randomString(14);
-
-    document.getElementById("email").innerText =
-        email;
-
-    document.getElementById("senha").innerText =
-        senha;
+    return senha;
 }
 
-function copiar(id){
+function gerarDados(){
+    const prefixo = document.getElementById("prefixo").value.trim().toLowerCase();
+    const dominio = document.getElementById("dominio").value;
+    const quantidade = Number(document.getElementById("quantidade").value);
 
-    const texto =
-        document.getElementById(id).innerText;
+    for(let i = 0; i < quantidade; i++){
+        const usuarioBase = prefixo ? prefixo : "usuario";
+        const email = `${usuarioBase}.${randomString(8)}@${dominio}`;
+        const senha = gerarSenha();
+
+        dadosGerados.unshift({
+            email,
+            senha,
+            data: new Date().toLocaleString("pt-BR")
+        });
+
+        document.getElementById("email").innerText = email;
+        document.getElementById("senha").innerText = senha;
+    }
+
+    atualizarHistorico();
+}
+
+function atualizarHistorico(){
+    const historico = document.getElementById("historico");
+    const contador = document.getElementById("contador");
+
+    historico.innerHTML = "";
+    contador.innerText = `${dadosGerados.length} gerados`;
+
+    dadosGerados.forEach((item) => {
+        const div = document.createElement("div");
+        div.className = "history-item";
+
+        div.innerHTML = `
+            <strong>${item.email}</strong>
+            <small>Senha: ${item.senha}</small><br>
+            <small>Gerado em: ${item.data}</small>
+        `;
+
+        historico.appendChild(div);
+    });
+}
+
+function copiarTexto(id){
+    const texto = document.getElementById(id).innerText;
+
+    if(texto === "---") return;
 
     navigator.clipboard.writeText(texto);
-
-    alert("Copiado!");
+    mostrarToast("Copiado com sucesso!");
 }
 
+function copiarTudo(){
+    if(dadosGerados.length === 0) return;
+
+    const texto = dadosGerados
+        .map(item => `E-mail: ${item.email} | Senha: ${item.senha}`)
+        .join("\n");
+
+    navigator.clipboard.writeText(texto);
+    mostrarToast("Todos os dados foram copiados!");
+}
+
+function baixarCSV(){
+    if(dadosGerados.length === 0) return;
+
+    let csv = "email,senha,data\n";
+
+    dadosGerados.forEach(item => {
+        csv += `${item.email},${item.senha},${item.data}\n`;
+    });
+
+    const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "emails-gerados.csv";
+    link.click();
+
+    URL.revokeObjectURL(url);
+}
+
+function limparHistorico(){
+    dadosGerados = [];
+    document.getElementById("email").innerText = "---";
+    document.getElementById("senha").innerText = "---";
+    atualizarHistorico();
+    mostrarToast("Histórico limpo!");
+}
+
+function mostrarToast(mensagem){
+    const toast = document.getElementById("toast");
+    toast.innerText = mensagem;
+    toast.style.display = "block";
+
+    setTimeout(() => {
+        toast.style.display = "none";
+    }, 2200);
+}
 </script>
 
 </body>
