@@ -428,11 +428,6 @@ button:hover {
             </p>
 
             <div class="field">
-                <label>Prefixo do usuário</label>
-                <input type="text" id="prefixo" placeholder="Ex: cliente, usuario, teste">
-            </div>
-
-            <div class="field">
                 <label>Domínio</label>
                 <select id="dominio">
                     <option value="gmail.com">gmail.com</option>
@@ -523,18 +518,6 @@ let dadosGerados = JSON.parse(localStorage.getItem("systememails_dados")) || [];
 function salvarLocal(){
     localStorage.setItem("systememails_dados", JSON.stringify(dadosGerados));
 }
-
-function randomString(length){
-    const chars = "abcdefghijklmnopqrstuvwxyz0123456789";
-    let result = "";
-
-    for(let i = 0; i < length; i++){
-        result += chars.charAt(Math.floor(Math.random() * chars.length));
-    }
-
-    return result;
-}
-
 function gerarSenha(length = 14){
     const chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%&*";
     let senha = "";
@@ -546,15 +529,61 @@ function gerarSenha(length = 14){
     return senha;
 }
 
+function gerarUsuario() {
+
+    const nomes = [
+        "alex","ana","andre","antonio","arthur","augusto",
+        "beatriz","bianca","brenda","bruno",
+        "camila","carlos","carolina","caio","cecilia",
+        "daniel","daniela","davi","debora","diego",
+        "eduardo","elisa","emanuel","enzo","erick",
+        "fabio","felipe","fernanda","flavia",
+        "gabriel","gabriela","guilherme","gustavo",
+        "heitor","henrique","hugo",
+        "igor","isabela","isadora",
+        "joao","jonas","jorge","jose","julia","juliana",
+        "kaue","karina","kevin",
+        "larissa","laura","leandro","leonardo","leticia",
+        "lucas","luana","luiz",
+        "marcos","mariana","matheus","melissa","miguel",
+        "natalia","nicolas",
+        "otavio",
+        "paulo","pedro","priscila",
+        "rafael","rafaela","renato","roberta","rodrigo",
+        "samuel","sandra","sara","sergio",
+        "taina","thiago",
+        "valentina","vanessa","victor","vitoria",
+        "william","yasmin"
+    ];
+
+    const sobrenomes = [
+        "silva","souza","oliveira","santos","pereira",
+        "rodrigues","almeida","ferreira","costa",
+        "gomes","martins","rocha","barbosa",
+        "ribeiro","dias","cardoso","teixeira",
+        "melo","castro","freitas","lima",
+        "carvalho","moreira","araujo","pires",
+        "alves","moura","machado","vieira",
+        "fonseca","correia","nascimento"
+    ];
+
+    const nome =
+        nomes[Math.floor(Math.random() * nomes.length)];
+
+    const sobrenome =
+        sobrenomes[Math.floor(Math.random() * sobrenomes.length)];
+
+    const numero =
+        Math.floor(Math.random() * 99999);
+
+    return `${nome}.${sobrenome}${numero}`;
+}
+
 function gerarDados(){
-    const prefixoInput = document.getElementById("prefixo").value.trim().toLowerCase();
     const dominio = document.getElementById("dominio").value;
     const quantidade = Number(document.getElementById("quantidade").value);
-
-    const prefixo = prefixoInput || "usuario";
-
     for(let i = 0; i < quantidade; i++){
-        const email = `${prefixo}.${randomString(8)}@${dominio}`;
+       const email = `${gerarUsuario()}@${dominio}`;
         const senha = gerarSenha();
 
         dadosGerados.unshift({
